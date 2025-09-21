@@ -3,26 +3,18 @@ package telran.javamaki.accounting.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import telran.javamaki.accounting.dao.UserRepository;
-import telran.javamaki.accounting.dto.UserDto;
-import telran.javamaki.accounting.dto.UserRegisterDoctorDto;
-import telran.javamaki.accounting.dto.UserRegisterPatientDto;
+import telran.javamaki.accounting.dto.*;
 import telran.javamaki.accounting.service.UserAccountService;
-import telran.javamaki.security.JwtService;
 import telran.javamaki.security.UserDetailsServiceImpl;
+
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/account")
 @RequiredArgsConstructor
 public class UserAccountController{
-    private final AuthenticationManager authenticationManager;
-    private final UserDetailsServiceImpl userDetailsService;
-    private final JwtService jwtService;
-    private final UserRepository userRepository;
     private final UserAccountService userAccountService;
 
 
@@ -36,5 +28,8 @@ public class UserAccountController{
         return userAccountService.registerPatient(userRegisterPatientDto);
     }
 
-
+    @GetMapping("/me")
+    public UserDto getCurrentUser(Principal principal) {
+        return userAccountService.getUser(principal.getName());
+    }
 }

@@ -8,4 +8,6 @@ public interface UserAccountService {
     UserDto registerDoctor(UserRegisterDoctorDto userRegisterDoctorDto);
 
     UserDto registerPatient(UserRegisterPatientDto userRegisterPatientDto);
+
+    UserDto getUser(String email);
 }

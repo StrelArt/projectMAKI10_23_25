@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @EqualsAndHashCode(of = {"id"})
-@Document(collection = "users")
+@Document(collection = "users_maki")
 public class UserAccount {
     @Id
     private String id;
@@ -26,14 +26,14 @@ public class UserAccount {
     private String lastName;
     @Setter
     private String email;
-    @Singular
-    private Set<Role> roles = new HashSet<>();
+    @Setter
+    private Role role;
 
-    public boolean addRole(String role) {
-        return roles.add(Role.valueOf(role.toUpperCase()));
-    }
-
-    public boolean removeRole(String role) {
-        return roles.remove(Role.valueOf(role.toUpperCase()));
-    }
+//    public boolean addRole(String role) {
+//        return roles.add(Role.valueOf(role.toUpperCase()));
+//    }
+//
+//    public boolean removeRole(String role) {
+//        return roles.remove(Role.valueOf(role.toUpperCase()));
+//    }
 }

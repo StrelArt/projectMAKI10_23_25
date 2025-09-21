@@ -24,7 +24,7 @@ public class UserRegisterPatientDto {
     private String password;
 
     @NotBlank(message = "bloodGroup is required")
-    @Size(min = 1, max = 1, message = "bloodGroup must be between 1 and 3 characters")
+    @Size(min = 1, max = 3, message = "bloodGroup must be between 1 and 3 characters")
     private String bloodGroup;
 
     @NotBlank(message = "phone is required")
