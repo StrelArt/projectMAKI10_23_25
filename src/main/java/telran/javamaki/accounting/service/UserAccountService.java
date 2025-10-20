@@ -10,4 +10,6 @@ public interface UserAccountService {
     UserDto registerPatient(UserRegisterPatientDto userRegisterPatientDto);
 
     UserDto getUser(String email);
+
+    UserDto deleteUser(String email);
 }

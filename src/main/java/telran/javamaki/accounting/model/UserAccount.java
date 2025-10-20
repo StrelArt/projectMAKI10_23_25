@@ -28,6 +28,15 @@ public class UserAccount {
     private String email;
     @Setter
     private Role role;
+    @Setter
+    private String phone;
+    @Setter
+    private String jobTitle;
+    @Setter
+    private String bloodGroup;
+    @Setter
+    private String allergic;
+
 
 //    public boolean addRole(String role) {
 //        return roles.add(Role.valueOf(role.toUpperCase()));

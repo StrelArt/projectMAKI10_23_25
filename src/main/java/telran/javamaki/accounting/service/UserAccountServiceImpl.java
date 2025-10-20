@@ -15,7 +15,7 @@ import telran.javamaki.accounting.model.UserAccount;
 
 @Service
 @RequiredArgsConstructor
-public class UserAccountServiceImpl implements UserAccountService{
+public class UserAccountServiceImpl implements UserAccountService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
@@ -47,6 +47,13 @@ public class UserAccountServiceImpl implements UserAccountService{
     @Override
     public UserDto getUser(String email) {
         UserAccount userAccount = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+        return modelMapper.map(userAccount, UserDto.class);
+    }
+
+    @Override
+    public UserDto deleteUser(String email) {
+        UserAccount userAccount = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+        userRepository.delete(userAccount);
         return modelMapper.map(userAccount, UserDto.class);
     }
 }

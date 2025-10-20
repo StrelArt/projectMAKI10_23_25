@@ -13,7 +13,7 @@ public class UserRegisterDoctorDto {
 
     @NotBlank(message = "lastName is required")
     @Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters")
-    private String lastname;
+    private String lastName;
 
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email should be valid")

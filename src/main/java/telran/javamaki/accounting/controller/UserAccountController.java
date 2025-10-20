@@ -32,4 +32,9 @@ public class UserAccountController{
     public UserDto getCurrentUser(Principal principal) {
         return userAccountService.getUser(principal.getName());
     }
+
+    @DeleteMapping("/me")
+    public UserDto delCurrentUser(Principal principal) {
+        return userAccountService.deleteUser(principal.getName());
+    }
 }
