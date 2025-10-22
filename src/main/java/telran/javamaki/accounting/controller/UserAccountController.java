@@ -10,6 +10,7 @@ import telran.javamaki.accounting.service.UserAccountService;
 import telran.javamaki.security.UserDetailsServiceImpl;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/account")
@@ -36,5 +37,11 @@ public class UserAccountController{
     @DeleteMapping("/me")
     public UserDto delCurrentUser(Principal principal) {
         return userAccountService.deleteUser(principal.getName());
+
+    }
+
+    @GetMapping("/doctors")
+    public List<DoctorOptionDto> getDoctors() {
+        return userAccountService.getAllDoctors();
     }
 }

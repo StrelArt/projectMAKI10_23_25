@@ -5,7 +5,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -36,6 +38,12 @@ public class UserAccount {
     private String bloodGroup;
     @Setter
     private String allergic;
+    @Setter
+    private String hospital;
+    @Setter
+    private List<String> patientIDs = new ArrayList<>();
+    @Setter
+    private String doctorId;
 
 
 //    public boolean addRole(String role) {

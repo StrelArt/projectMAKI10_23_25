@@ -3,7 +3,11 @@ package telran.javamaki.accounting.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.Singular;
 import org.hibernate.validator.constraints.NotBlank;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 public class UserRegisterPatientDto {
@@ -38,4 +42,10 @@ public class UserRegisterPatientDto {
     @NotBlank(message = "allergic is required")
     @Size(min = 2, max = 20, message = "allergic must be between 2 and 20 characters")
     private String allergic;
+
+    private String doctorId;
+
+    @Singular
+    private List<String> allDoctors;
+
 }
