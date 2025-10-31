@@ -1,7 +1,9 @@
 package telran.javamaki.metrics.model;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import telran.javamaki.alarms.model.Alarm;
 
@@ -20,16 +22,21 @@ public class Metrics {
     @Id
     private String metricsId;
 
+    @Indexed
     private String patientId;
-    private LocalDateTime measurementTime = LocalDateTime.now();
-    private int heartRate;
-    private int systolicBloodPressure;
-    private int diastolicBloodPressure;
-    private double bodyTemperature;
-    private int oxygenSaturation;
+
+    @Indexed
+    @CreatedDate
+    private LocalDateTime measurementTime;
+    
+    private Integer heartRate;
+    private Integer systolicBloodPressure;
+    private Integer diastolicBloodPressure;
+    private Double bodyTemperature;
+    private Integer oxygenSaturation;
     private List<Alarm> alarms = new ArrayList<>();
 
-    public Metrics(int heartRate, int systolicBloodPressure, int diastolicBloodPressure, double bodyTemperature, int oxygenSaturation) {
+    public Metrics(Integer heartRate, Integer systolicBloodPressure, Integer diastolicBloodPressure, Double bodyTemperature, Integer oxygenSaturation) {
         this.heartRate = heartRate;
         this.systolicBloodPressure = systolicBloodPressure;
         this.diastolicBloodPressure = diastolicBloodPressure;

@@ -18,10 +18,10 @@ public class MetricsDto {
     private String metricsId;
     private String patientId;
     private LocalDateTime measurementTime;
-    private int heartRate;
-    private int systolicBloodPressure;
-    private int diastolicBloodPressure;
-    private double bodyTemperature;
-    private int oxygenSaturation;
+    private Integer heartRate;
+    private Integer systolicBloodPressure;
+    private Integer diastolicBloodPressure;
+    private Double bodyTemperature;
+    private Integer oxygenSaturation;
     private List<Alarm> alarms = new ArrayList<>();
 }

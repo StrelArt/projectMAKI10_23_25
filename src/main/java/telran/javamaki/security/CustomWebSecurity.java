@@ -19,8 +19,13 @@ public class CustomWebSecurity {
 
     public boolean isLoginMetrics(String login, String metricsId) {
         UserAccount user = userRepository.findByEmail(login).orElse(null);
-        return user != null && metricsRepository.findByMetricsId(metricsId).isPresent() &&
-                metricsRepository.findByMetricsId(metricsId).get().getPatientId().equals(user.getId());
+        return user != null &&
+                metricsRepository.findByMetricsId(metricsId)
+                        .map(m -> m.getPatientId().equals(user.getId()))
+                        .orElse(false);
+
+//        return user != null && metricsRepository.findByMetricsId(metricsId).isPresent() &&
+//                metricsRepository.findByMetricsId(metricsId).get().getPatientId().equals(user.getId());
     }
 
     public boolean isDoctor(String login, String patientsId) {

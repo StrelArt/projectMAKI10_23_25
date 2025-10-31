@@ -119,6 +119,10 @@ public class MetricsServiceImpl implements MetricsService{
 
     @Override
     public Iterable<MetricsDto> getAllMetricsByPeriodByPatientId(String patientId, LocalDate startDate, LocalDate endDate) {
+        if (startDate.isAfter(endDate)) {
+            throw new IllegalArgumentException("Start date must be before or equal to end date");
+        }
+
         LocalDateTime startDateTime = startDate.atStartOfDay();
         LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
 

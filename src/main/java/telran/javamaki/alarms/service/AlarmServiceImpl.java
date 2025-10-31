@@ -95,6 +95,11 @@ public class AlarmServiceImpl implements AlarmService{
 
     @Override
     public Iterable<AlarmDto> getAlarmsByPeriodByPatientId(String patientId, LocalDate startDate, LocalDate endDate) {
+
+        if (startDate.isAfter(endDate)) {
+            throw new IllegalArgumentException("Start date must be before or equal to end date");
+        }
+
         LocalDateTime startDateTime = startDate.atStartOfDay();
         LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
 
@@ -103,6 +108,16 @@ public class AlarmServiceImpl implements AlarmService{
         if(alarmsList.isEmpty()){
             throw new AlarmNotFoundException();
         }
+
+        userRepository.findByIdAndRoleContaining(patientId, Role.PATIENT)
+                .ifPresent(userAccount -> {
+                    alarmsList.forEach(a -> {
+                        a.setName(userAccount.getName());
+                        a.setLastname(userAccount.getLastName());
+                        a.setHospital(userAccount.getHospital());
+                    });
+                });
+
 
         return alarmsList.stream()
                 .map(m -> modelMapper.map(m, AlarmDto.class))

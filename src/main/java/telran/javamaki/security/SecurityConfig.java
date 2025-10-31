@@ -39,13 +39,13 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.GET, "/account/patients/{patientId}/alarms/**")
                         .access((authentication, context) ->
-                                new AuthorizationDecision(webSecurity.isLoginId(authentication.get().getName(), context.getVariables().get("patientId").toString()) &&
+                                new AuthorizationDecision(webSecurity.isLoginId(authentication.get().getName(), context.getVariables().get("patientId").toString()) ||
                                         webSecurity.isDoctor(authentication.get().getName(), context.getVariables().get("patientId").toString())))
 
 
                         .requestMatchers(HttpMethod.DELETE, "/account/patients/{patientId}/alarms/**")
                         .access((authentication, context) ->
-                                new AuthorizationDecision(webSecurity.isLoginId(authentication.get().getName(), context.getVariables().get("patientId").toString()) &&
+                                new AuthorizationDecision(webSecurity.isLoginId(authentication.get().getName(), context.getVariables().get("patientId").toString()) ||
                                         webSecurity.isDoctor(authentication.get().getName(), context.getVariables().get("patientId").toString())))
 
                         .requestMatchers(HttpMethod.GET, "/account/doctors/{doctorsId}/alarms")
@@ -56,23 +56,28 @@ public class SecurityConfig {
                         .access((authentication, context) ->
                                 new AuthorizationDecision(webSecurity.isLoginId(authentication.get().getName(), context.getVariables().get("patientId").toString())))
 
-                        .requestMatchers(HttpMethod.DELETE, "/account/measurements/{patientId}")
+                        .requestMatchers(HttpMethod.DELETE, "/account/measurements/bypatient/{patientId}")
                         .access((authentication, context) ->
                                 new AuthorizationDecision(webSecurity.isLoginId(authentication.get().getName(), context.getVariables().get("patientId").toString())))
 
-                        .requestMatchers(HttpMethod.DELETE, "/account/measurements/{metricsId}")
+                        .requestMatchers(HttpMethod.DELETE, "/account/measurements/byid/{metricsId}")
                         .access((authentication, context) ->
                                 new AuthorizationDecision(webSecurity.isLoginMetrics(authentication.get().getName(), context.getVariables().get("metricsId").toString())))
 
                         .requestMatchers(HttpMethod.GET, "/account/measurements/{patientId}/**")
                         .access((authentication, context) ->
-                                new AuthorizationDecision(webSecurity.isLoginId(authentication.get().getName(), context.getVariables().get("patientId").toString()) &&
+                                new AuthorizationDecision(webSecurity.isLoginId(authentication.get().getName(), context.getVariables().get("patientId").toString()) ||
                                         webSecurity.isDoctor(authentication.get().getName(), context.getVariables().get("patientId").toString())))
 
 
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults()); // 🔹 Basic Auth
+
+
+//                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
+
+
         return http.build();
     }
 
